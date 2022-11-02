@@ -25,21 +25,6 @@ double cmplx_real(double mag, double phs) {
     return sqrt(pow(mag, 2) / (pow(tan(phs), 2) + 1));
 }
 
-// static void dft(double[] inreal , double[] inimag,
-//                 double[] outreal, double[] outimag) {
-//     int n = inreal.length;
-//     for (int k = 0; k < n; k++) {  // For each output element
-//         double sumreal = 0;
-//         double sumimag = 0;
-//         for (int t = 0; t < n; t++) {  // For each input element
-//             double angle = 2 * Math.PI * t * k / n;
-//             sumreal +=  inreal[t] * Math.cos(angle) + inimag[t] * Math.sin(angle);
-//             sumimag += -inreal[t] * Math.sin(angle) + inimag[t] * Math.cos(angle);
-//         }
-//         outreal[k] = sumreal;
-//         outimag[k] = sumimag;
-//     }
-// }
 // returns imaginary part of mag/_phs
 double cmplx_imag(double mag, double phs){
     return 0;
@@ -51,6 +36,9 @@ void cmplx_dft(cmplx_t *input, cmplx_t *output, int N){
     double angle;
     float real;
     float imag;
+
+
+
 
     for (int k = 0; k < N; k++) {
         sumReal = 0;
@@ -68,6 +56,7 @@ void cmplx_dft(cmplx_t *input, cmplx_t *output, int N){
         *output[2*k + 1] = sumImag;
     }
 }
+
 // returns inverse dft transformation of complex input signal
 void cmplx_idft(cmplx_t *input, cmplx_t *output, int N){
     cmplx_dft(input, output, N);

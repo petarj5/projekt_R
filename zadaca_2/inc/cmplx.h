@@ -1,5 +1,4 @@
 typedef float cmplx_t[2];
-
 // c = a / b;
 void cmplx_div(cmplx_t a, cmplx_t b, cmplx_t c);
 // c = a * b;
