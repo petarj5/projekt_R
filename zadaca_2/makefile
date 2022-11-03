@@ -1,5 +1,5 @@
 SRC=$(wildcard src/*c)
-MAINS=$(wildcard exesrc/*.c)
+#MAINS=$(wildcard exesrc/*.c)
 
 #every test file has to begin with test (ex. test_file.c, test_sth.c)
 TESTS=$(wildcard exesrc/test*.c)
@@ -7,24 +7,39 @@ TESTS=$(wildcard exesrc/test*.c)
 MAIN=exesrc/main.c
 
 #$(patsubst pattern,replacement,text)
-OBJ=$(patsubst %c, %o, $(SRC)) $(patsubst %c, %o, $(MAIN))
-#OBJ=$(patsubst %c, %o, $(SRC)) MAIN
+OBJ=$(patsubst %c, %o, $(SRC)) $(patsubst %c, %o, $(TESTS)) $(patsubst %c, %o, $(MAIN)) 
+
+OBJMAIN= $(patsubst %c, %o, $(SRC)) $(patsubst %c, %o, $(MAIN)) 
+OBJTEST=  $(patsubst %c, %o, $(TESTS))
+
+OBJSRC=$(patsubst %c, %o, $(SRC))
+
+
+
 INC=inc/
 
 CFLAGS=-I $(INC)
-#EXE=exe/app.elf
-EXE=exe/app.elf $(patsubst exesrc%c, exe%elf, $(TESTS))
+
+EXEMAIN=exe/app.elf 
+EXETEST=$(patsubst exesrc%c, exe%elf, $(TESTS))
 
 
-.SECONDARY:
 
-all: $(EXE)
 
-%.elf: $(OBJ)
-	gcc $(OBJ) -lm -o $@
+all: $(EXEMAIN)
+test:  $(EXETEST)
 
+$(EXEMAIN): $(OBJMAIN) 
+	gcc $(OBJMAIN) -lm -o $@
 %.o: %.c
 	gcc -c $< $(CFLAGS) -o $@
 
+ 
+$(EXETEST): $(OBJTEST)
+	gcc $(OBJSRC) $(patsubst exe%elf, exesrc%o, $@) -lm -o $@
+$(OBJTEST): $(OBJSRC)
+%o: %.c
+	gcc -c $< $(CFLAGS) -o $@
+
 clean:
-	rm -f $(OBJ) $(EXE)
+	rm -f $(OBJ) $(EXETEST) $(EXEMAIN) $(OBJTEST) $(EXETEST)
