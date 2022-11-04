@@ -1,0 +1,1 @@
+void generateSignal(int freq);
