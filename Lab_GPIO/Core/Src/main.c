@@ -53,6 +53,27 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int main(void) {
+    
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    gpio_led_state(GPIO_RED_ID, TURN_ON);
+    gpio_led_state(GPIO_GREEN_ID, TURN_ON);
+
+    uint32_t i;
+    while(1) {
+        for (i = 0; i < 1000000; i++);
+        gpio_led_state(GPIO_GREEN_ID, TURN_OFF);
+        gpio_led_state(GPIO_RED_ID, TURN_ON);
+
+        for ( i = 0; i < 1000000; i++);
+        gpio_led_state(GPIO_GREEN_ID, TURN_ON);
+        gpio_led_state(GPIO_RED_ID, TURN_OFF);
+
+    }
+
+}
 
 /* USER CODE END 0 */
 
@@ -73,7 +94,7 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage
   */
   __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.

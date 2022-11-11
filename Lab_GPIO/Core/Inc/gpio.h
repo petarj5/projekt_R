@@ -34,11 +34,16 @@ extern "C" {
 
 /* USER CODE BEGIN Private defines */
 
+#define GPIO_GREEN_ID  1
+#define GPIO_RED_ID    2
+
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
+void gpio_led_state ( uint8_t LED_ID , uint8_t state );
 
 /* USER CODE END Prototypes */
 

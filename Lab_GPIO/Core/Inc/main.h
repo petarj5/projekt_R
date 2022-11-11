@@ -59,6 +59,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 /* USER CODE BEGIN Private defines */
 
+#define TURN_OFF  0
+#define TURN_ON   1
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
