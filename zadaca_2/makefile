@@ -1,5 +1,4 @@
 SRC=$(wildcard src/*c)
-#MAINS=$(wildcard exesrc/*.c)
 
 #every test file has to begin with test (ex. test_file.c, test_sth.c)
 TESTS=$(wildcard exesrc/test*.c)
@@ -14,17 +13,12 @@ OBJTEST=  $(patsubst %c, %o, $(TESTS))
 
 OBJSRC=$(patsubst %c, %o, $(SRC))
 
-
-
 INC=inc/
 
 CFLAGS=-I $(INC)
 
 EXEMAIN=exe/app.elf 
 EXETEST=$(patsubst exesrc%c, exe%elf, $(TESTS))
-
-
-
 
 all: $(EXEMAIN)
 test:  $(EXETEST)
@@ -42,4 +36,4 @@ $(OBJTEST): $(OBJSRC)
 	gcc -c $< $(CFLAGS) -o $@
 
 clean:
-	rm -f $(OBJ) $(EXETEST) $(EXEMAIN) $(OBJTEST) $(EXETEST)
+	rm -f $(OBJ) $(EXETEST) $(EXEMAIN)
