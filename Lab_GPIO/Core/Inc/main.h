@@ -62,6 +62,7 @@ void Error_Handler(void);
 #define TURN_OFF  0
 #define TURN_ON   1
 
+#define DELAY_MS  1000
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

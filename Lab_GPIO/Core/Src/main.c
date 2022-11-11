@@ -1,8 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
+  * @file    gpio.c
+  * @brief   This file provides code for the configuration
+  *          of all used GPIO pins.
   ******************************************************************************
   * @attention
   *
@@ -18,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -53,26 +55,26 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+uint32_t timer2_Ticks_Millisec = 0;
+
 int main(void) {
-    
+
     HAL_Init();
     SystemClock_Config();
     MX_GPIO_Init();
-    gpio_led_state(GPIO_RED_ID, TURN_ON);
-    gpio_led_state(GPIO_GREEN_ID, TURN_ON);
+    MX_TIM2_Init();
+    HAL_TIM_Base_Start_IT(&htim2);
 
-    uint32_t i;
-    while(1) {
-        for (i = 0; i < 1000000; i++);
-        gpio_led_state(GPIO_GREEN_ID, TURN_OFF);
-        gpio_led_state(GPIO_RED_ID, TURN_ON);
-
-        for ( i = 0; i < 1000000; i++);
+    while(1){
+        timer2_wait_millisec(DELAY_MS);
         gpio_led_state(GPIO_GREEN_ID, TURN_ON);
         gpio_led_state(GPIO_RED_ID, TURN_OFF);
 
+        timer2_wait_millisec(DELAY_MS);
+        gpio_led_state(GPIO_GREEN_ID, TURN_OFF);
+        gpio_led_state(GPIO_RED_ID, TURN_ON);    
     }
-
 }
 
 /* USER CODE END 0 */
